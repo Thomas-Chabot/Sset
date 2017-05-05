@@ -85,6 +85,10 @@ function reset(ev, ignorePrev){
 		var prevId = main.data("index") - 1;
 		var prevRow = $("#row" + prevId);
 		var checkBtn = $("#check", prevRow);
-		checkBtn.click();
+
+		// Copy the elements from the row above if & only if its already completed
+		// (Fixes a bug that if reset is clicked, row above is done but not yet checked, will be checked)
+		if (prevRow.data("correct") === 1)
+			checkBtn.click();
 	}
 }
