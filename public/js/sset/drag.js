@@ -1,3 +1,9 @@
+/*
+	This stores most of the functionality for dragging, sorting, and dropping into trash.
+	Also handles resetting sets, which it probably shouldn't..
+*/
+
+// runs the initial dragging & sorting after page loads
 $(function(){
 	applyDraggingSorting();
 });
@@ -9,6 +15,7 @@ $(function(){
 		- Otherwise applies to every element in the DOM
 */
 function applyDraggingSorting (t){
+	// items already in the set
 	$(".items", t).each(function(j,q){
 		var el = $(q);
 		el.sortable({
@@ -22,6 +29,8 @@ function applyDraggingSorting (t){
 		 	connectWith: ".droppable"
 		});
 	});
+
+	// add(el)
 	$(".newItem", t).each(function(){
 		var btn = $(this);
 		var id = btn.attr("id");
@@ -32,6 +41,8 @@ function applyDraggingSorting (t){
 	 		revert: "invalid"
 		})
 	})
+
+	// trash
 	$(".droppable").droppable({
 		drop: function(ev, ui){
 			var parentRow = ui.helper.closest("tr");
@@ -42,8 +53,10 @@ function applyDraggingSorting (t){
 
 	});
 
+	// not sure if this is needed, but it was on the JQuery example
 	$("#set,.newItem,.element", t).disableSelection();
 
+	// connect the reset event (for when Reset Button / Row above is completed)
 	$("ul.items", t).on("reset", reset);
 }
 
@@ -55,8 +68,12 @@ function reset(ev, ignorePrev){
 	var resetId   = main.attr("id").replace("row", "reset");
 	var reset     = $("#" + resetId);
 
+	// reset.children().clone() takes every child of the reset# row and makes a clone of it
+	// which can then be pushed into the real (shown) row as a sort of reset.
 	var newChildren = reset.children().clone();
 	main.empty().append(newChildren);
+
+	// call this to make everything draggable, sortable, droppable
 	applyDraggingSorting (newChildren);
 
 	// mark the row as being incorrect so items can be copied from previous rows
