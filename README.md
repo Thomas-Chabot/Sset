@@ -1,3 +1,6 @@
+To install:
+  npm install
+
 To run:
   Open the terminal in the same directory as server.js
   Run node server.js and the server will start listening
