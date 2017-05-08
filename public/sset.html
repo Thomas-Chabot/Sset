@@ -7,43 +7,7 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <script>
-     /*function loadXMLDoc() {
-      var xmlhttp=new XMLHttpRequest();
-      xmlhttp.onreadystatechange=function() {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-          document.getElementById("question").innerHTML=xmlhttp.responseText;
-          var inputs = document.getElementsByTagName('input');
-          for (i = 0; i < inputs.length; i++) {
-            var input = inputs[i] 
-            input.onkeyup = function() {
-              var correct = document.getElementById(this.id.replace('a', 'c')).innerHTML
-              var check = document.getElementById(this.id.replace('a', 'check'))
-              if (this.value === correct) {
-                check.innerHTML = '&#x2714'
-                check.style.color='green'
-                this.style.borderColor='green';
-              } else {
-                check.innerHTML = '&#x2717'
-                check.style.color = 'red'
-                this.style.borderColor='red';
-              }
-            }
-            input.onkeydown = input.onkeyup;
-            input.onkeyup.call(input);
-          }
-        }
-      }
-      try {
-        xmlhttp.open("GET","/~morin/cgi-bin/wordwalk3.py",true);
-        xmlhttp.send();
-      } catch (err) {
-        document.getElementById("question").innerHTML 
-         = "<tr><td class='errormsg'>Network error: Unable to load exercise.<br>" 
-           + err.message + "</td></tr>";
-      }
-    }*/
-    </script>
+    <script src="js/sset/load.js"></script>
     <script src="js/sset/drag.js"></script>
     <script src="js/sset/answer.js"></script>
     <script src="js/sset/btn.js"></script>
@@ -75,110 +39,16 @@
        <p>
        <table id="question">
        	<tbody>
-	       	<tr id="row0" data-index="0">
-		       	<td>add(<div class="element newItem" id="new0">c</div>);</td>
-		       	<td>
-		       		<div class="textin">
-						<img src="img/trash.jpg" height="10" width="10" class="droppable">
-			       		<ul class="textin items" id="set0">
-						  <div class="element">a</div
-						  ><div class="element">b</div>
-						</ul>
-					</div>
-		       		<a class="button" href="nojavascript.html" onclick="btnClick(this); return false" id="check">Check</a>
-		       		<a class="button" href="nojavascript.html" onclick="resetBtn(this); return false" id="reset">Reset</a>
-		       		<p>
-		       	    <span class="checkmark" id="check0"></span>
-		       	    <span class="hidden" id="c">abc</span>
-		       	</td>
-		    </tr>
-	       	<tr class="hidden" id="reset0">
-		       	<td>add(<div class="element newItem" id="new0">c</div>);</td>
-		       	<td>
-		       		<div class="textin">
-						<img src="img/trash.jpg" height="10" width="10" class="droppable">
-			       		<ul class="textin items" id="set0">
-						  <div class="element">a</div
-						  ><div class="element">b</div>
-						</ul>
-					</div>
-		       		<a class="button" href="nojavascript.html" onclick="btnClick(this); return false" id="check">Check</a>
-		       		<a class="button" href="nojavascript.html" onclick="resetBtn(this); return false" id="reset">Reset</a>
-		       		<p>
-		       	    <span class="checkmark" id="check0"></span>
-		       	    <span class="hidden" id="c">abc</span>
-		       	</td>
-		    </tr>
-	       	<tr id="row1" data-index="1">
-	       		<td>add(<div class="element newItem" id="new1">d</div>);</td>
-		       	<td>
-		       		<div class="textin" data-index="1">
-						<img src="img/trash.jpg" height="10" width="10" class="droppable">
-			       		<ul class="textin items" id="set1">
-			       		</ul>
-					</div>
-		       		<a class="button" href="nojavascript.html" onclick="btnClick(this); return false" id="check">Check</a>
-		       		<a class="button" href="nojavascript.html" onclick="resetBtn(this); return false" id="reset">Reset</a>
-		       		<p>
-		       	    <span class="checkmark" id="check0"></span>
-		       	    <span class="hidden" id="c">abcd</span>
-		       	</td>
-	       	</tr>
-	       	<tr class="hidden" id="reset1">
-		       	<td>add(<div class="element newItem" id="new1">d</div>);</td>
-		       	<td>
-		       		<div class="textin" data-index="1">
-						<img src="img/trash.jpg" height="10" width="10" class="droppable">
-			       		<ul class="textin items" id="set1">
-			       		</ul>
-					</div>
-		       		<a class="button" href="nojavascript.html" onclick="btnClick(this); return false" id="check">Check</a>
-		       		<a class="button" href="nojavascript.html" onclick="resetBtn(this); return false" id="reset">Reset</a>
-		       		<p>
-		   			<span class="checkmark" id="check0"></span>
-		       	    <span class="hidden" id="c">abcd</span>
-		       	</td>
-	       	</tr>
-	       	<tr id="row2" data-index="2">
-	       		<td>remove(<div class="element newItem" id="new2">c</div>);</td>
-		       	<td>
-		       		<div class="textin" data-index="1">
-						<img src="img/trash.jpg" height="10" width="10" class="droppable">
-			       		<ul class="textin items" id="set2">
-			       		</ul>
-					</div>
-		       		<a class="button" href="nojavascript.html" onclick="btnClick(this); return false" id="check">Check</a>
-		       		<a class="button" href="nojavascript.html" onclick="resetBtn(this); return false" id="reset">Reset</a>
-		       		<p>
-		       	    <span class="checkmark" id="check0"></span>
-		       	    <span class="hidden" id="c">abd</span>
-		       	</td>
-	       	</tr>
-	       	<tr class="hidden" id="reset2">
-	       		<td>remove(<div class="element newItem" id="new2">c</div>);</td>
-		       	<td>
-		       		<div class="textin" data-index="1">
-						<img src="img/trash.jpg" height="10" width="10" class="droppable">
-			       		<ul class="textin items" id="set2">
-			       		</ul>
-					</div>
-		       		<a class="button" href="nojavascript.html" onclick="btnClick(this); return false" id="check">Check</a>
-		       		<a class="button" href="nojavascript.html" onclick="resetBtn(this); return false" id="reset">Reset</a>
-		       		<p>
-		       	    <span class="checkmark" id="check0"></span>
-		       	    <span class="hidden" id="c">abd</span>
-		       	</td>
-	       	</tr>
        	</tbody>
        </table>
        <p>
-       <a class="button hidden" href="nojavascript.html" onclick="loadXMLDoc(); return false">Do it again!</a><p>
+       <a class="button" href="nojavascript.html" onclick="loadExercise(); return false">Do it again!</a><p>
     
     </div>
     </div> <!-- contents -->
   </body>
   <script>Hyphenator.run();</script>
-  <script>loadXMLDoc();</script>
+  <script>loadExercise();</script>
 </html>
 
 

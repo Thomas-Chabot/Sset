@@ -22,6 +22,7 @@
         padding: 3pt 6pt 3pt 6pt;
         border: 2px solid rgb(204,0,51); /* CU red */ 
         color: rgb(204,0,51); /* CU red */ 
+        margin-left: 9px;
       }
       a.button:active {
         border-color: black;
@@ -70,15 +71,14 @@
           padding-left: 5px;
       }
       ul.textin {
-          margin: 0px;
+	  margin: 0;
           padding-left: 3px;
+	  margin-left: 20px;
           margin-right: 3em;
           border: 2px solid rgb(204,0,51); /* CU red */ 
           width: 150px;
           height: 15px;
           display: inline-block;
-          margin-right: 0px;
-          padding-right: 0px;
       }
       div.textin {
       	  display: inline-block;
