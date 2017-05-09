@@ -1,0 +1,146 @@
+<html lang="en">
+  <head>
+    <title>The ArrayStack</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="css/arraystack/style.css">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- This is a lot of objects. I like objects. -->
+  <script src="js/arraystack/Answer.js"></script>
+  <script src="js/arraystack/Button.js"></script>
+  <script src="js/arraystack/Colors.js"></script>
+  <script src="js/arraystack/DOM.js"></script>
+  <script src="js/arraystack/Draggable.js"></script>
+  <script src="js/arraystack/Droppable.js"></script>
+  <script src="js/arraystack/Dropper.js"></script>
+  <script src="js/arraystack/Element.js"></script>
+  <script src="js/arraystack/Row.js"></script>
+  <script src="js/arraystack/ElementArray.js"></script>
+  <script src="js/arraystack/DropArray.js"></script>
+  <script src="js/arraystack/main.js"></script>
+
+    <script 
+      src="http://hyphenator.googlecode.com/svn/tags/Version%204.0.0/Hyphenator.js">
+    </script>
+  </head>
+  <body lang="en" class="hyphenate">
+    <div class="titleblock">
+      <div class="title">The ArrayStack</div>    
+      <div class="subtitle">A sequence of elements</div>
+    </div>
+    <div id="contents">
+      <p>
+       Watch this video to learn about the ArrayStack.
+      </p>
+         <iframe width="784" height="441" src="http://www.youtube.com/embed/hb5dpfwqWj0?rel=0" frameborder="0" allowfullscreen></iframe> 
+      <p>
+      You can also read about the ArrayStack in <a
+     href="http://opendatastructures.org/ods-java/2_1_ArrayStack_Fast_Stack_O.html"
+     target="_blank">Section 2.1</a> of the textbook.
+      </p>
+      <div class='exercise'>
+    	Starting with an Array Stack that is initially empty, illustrate the evolution of the stack as the following operations are performed.
+       <p>
+       <table id="question">
+       	<tbody>
+          <tr id="row0" data-index='0'>
+            <td>add(0, '<div class="element">x</div>');<div class="element">y</div></td>
+            <td>
+              <ul class="textin items" id="set0">
+                <li><div class="droppable" data-index="0"></div></li
+                ><li><div class="droppable" data-index="1"></div></li
+                ><li><div class="droppable" data-index="2"></div></li
+                ><li><div class="droppable" data-index='3'></div></li
+                ><li><div class="droppable" data-index='4'></div></li
+                ><li><div class="droppable" data-index='5'></div></li
+                ><li><div class="droppable" data-index='6'></div></li>
+              </ul>
+            </td>
+            <td>
+              <a class="button" href="nojavascript.html" onclick="Button.check(this); return false">Check</a>
+              <a class="button" href="nojavascript.html" onclick="Button.reset(this); return false">Reset</a>
+            </td>
+            <td>
+              <span class="hidden" id="c">xyy</span>
+            </td>
+          </tr>
+          <tr id="reset0" class="hidden" data-index='0'>
+            <td>add(0, '<div class="element">x</div>');<div class="element">y</div></td>
+            <td>
+              <ul class="textin items" id="set0">
+                <li><div class="droppable" data-index='0'></div></li
+                ><li><div class="droppable" data-index='1'></div></li
+                ><li><div class="droppable" data-index='2'></div></li
+                ><li><div class="droppable" data-index='3'></div></li
+                ><li><div class="droppable" data-index='4'></div></li
+                ><li><div class="droppable" data-index='5'></div></li
+                ><li><div class="droppable" data-index='6'></div></li>
+              </ul>
+            </td>
+            <td>
+              <a class="button" href="nojavascript.html" onclick="Button.check(this); return false">Check</a>
+              <a class="button" href="nojavascript.html" onclick="Button.reset(this); return false">Reset</a>
+            </td>
+            <td>
+              <span class="hidden" id="c">xyy</span>
+            </td>
+          </tr>
+          <tr><td></td><td><span class="textin">01234567</span></td></tr>
+          <tr id="row1" data-index='1'>
+            <td>add(0, '<div class="element">z</div>');<div class="element">y</div></td>
+            <td>
+              <ul class="textin items" id="set1">
+                <li><div class="droppable" data-index='0'></div></li
+                ><li><div class="droppable" data-index='1'></div></li
+                ><li><div class="droppable" data-index='2'></div></li
+                ><li><div class="droppable" data-index='3'></div></li
+                ><li><div class="droppable" data-index='4'></div></li
+                ><li><div class="droppable" data-index='5'></div></li
+                ><li><div class="droppable" data-index='6'></div></li>
+              </ul>
+            </td>
+            <td>
+              <a class="button" href="nojavascript.html" onclick="Button.check(this); return false">Check</a>
+              <a class="button" href="nojavascript.html" onclick="Button.reset(this); return false">Reset</a>
+            </td>
+            <td>
+              <span class="hidden" id="c">xzyy</span>
+            </td>
+          </tr>
+          <tr id="reset1" class="hidden" data-index='1'>
+            <td>add(0, '<div class="element">z</div>');<div class="element">y</div></td>
+            <td>
+              <ul class="textin items" id="set1">
+                <li><div class="droppable" data-index='0'></div></li
+                ><li><div class="droppable" data-index='1'></div></li
+                ><li><div class="droppable" data-index='2'></div></li
+                ><li><div class="droppable" data-index='3'></div></li
+                ><li><div class="droppable" data-index='4'></div></li
+                ><li><div class="droppable" data-index='5'></div></li
+                ><li><div class="droppable" data-index='6'></div></li>
+              </ul>
+            </td>
+            <td>
+              <a class="button" href="nojavascript.html" onclick="Button.check(this); return false">Check</a>
+              <a class="button" href="nojavascript.html" onclick="Button.reset(this); return false">Reset</a>
+            </td>
+            <td>
+              <span class="hidden" id="c">xzyy</span>
+            </td>
+          </tr>
+          <tr><td></td><td><span class="textin">01234567</span></td></tr>
+       	</tbody>
+       </table>
+       <p>
+       <a class="button hidden" href="nojavascript.html" onclick="loadExercise(); return false">Do it again!</a><p>
+    
+    </div>
+    </div> <!-- contents -->
+  </body>
+  <script>Hyphenator.run();</script>
+  <script>loadExercise();</script>
+</html>
+
+

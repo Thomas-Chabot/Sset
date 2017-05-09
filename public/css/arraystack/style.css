@@ -47,13 +47,22 @@
       }
       div.exercise {
       }
-      div.element {
+      div.droppable {
       	height: 80%;
       	display: inline-block;
       	padding-left: 0;
       	padding-right: 0;
       	margin-left: 0;
       	margin-right: 0;
+        width: 20px;
+      }
+      div.over {
+        position: absolute;
+        z-index: 2;
+      }
+      div.under {
+        position: absolute;
+        z-index: 1;
       }
       .errormsg {
          color: red;
@@ -71,13 +80,16 @@
           padding-left: 5px;
       }
       ul.textin {
-	        margin: 0;
+	  margin: 0;
           padding-left: 3px;
-	        margin-left: 20px;
+          margin-right: 3em;
           border: 2px solid rgb(204,0,51); /* CU red */ 
           width: 150px;
           height: 15px;
           display: inline-block;
+      }
+      ul.textin > li{
+        display: inline-block;
       }
       div.textin {
       	  display: inline-block;
@@ -94,4 +106,13 @@
       a.correct{
         border-color: green;
         color: green;
+      }
+      .element.correct{
+        color: green;
+      }
+      .ui-state-hover{
+        background-color: #f00;
+      }
+      div.element{
+        display: inline-block;
       }
