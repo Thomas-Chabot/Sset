@@ -1,5 +1,5 @@
 function loadExercise(){
-	$.get("/ssetExercise", function(res){
+	$.get("/sset/exercise", function(res){
 		var tbody = $("tbody");
 		tbody.empty().append(res);
 		applyDraggingSorting();

@@ -7,7 +7,7 @@ const ROOT = "./public";
 app.set('view engine', 'pug');
 
 app.get("/:type/exercise", function(req,res){
-	var exercise = require("./modules/" + req.params.type);
+	var exercise = require("./modules/" + req.params.type + ".js");
 	var render   = pug.compileFile("./views/" + req.params.type + "/render.pug");
 	res.status(200).send(exercise.create(render));
 });
