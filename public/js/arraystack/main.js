@@ -4,24 +4,19 @@
 	NTS:
 		Copying from row to next row needs to be added;
 		Array resizing needs to be added.
+
+	NTS[2]:
+		Copying to the next row works, but the system goes down. All objects seem to be getting removed on cleanup, not just the few that should be.
 */
 
-var Rows, Elements, Droppers;
+var Rows, Elements, Droppers, RowIndices;
 
 $(function(){
-	Rows     = new ElementArray(DOM.rows(), Row);
-	Elements = new ElementArray(DOM.elements(), Element);
-	Droppers = new DropArray();
-
-// ???
+	reload ();
 });
 
-function makeCopy (element){
-	var newElement = $(element).clone();
-
-}
-
 function addNewElements (elements) {
+	// Clean up anything that no longer exists ...
 	Rows.cleanup();
 	Elements.cleanup();
 	Droppers.cleanup();
@@ -30,4 +25,20 @@ function addNewElements (elements) {
 	Rows.add (DOM.rowFrom (elements)); // if there are any!
 	Elements.add (DOM.elementsFrom (elements)); // elements from elements. hmm
 	Droppers.add (DOM.droppersFrom (elements)); // k
+	Trash.add (DOM.trashFrom (elements));
+}
+
+function loadNew (){
+	Rows     = new ElementArray(DOM.rows(), Row);
+	Elements = new ElementArray(DOM.elements(), Element);
+	Droppers = new DropArray();
+	RowIndices = new ElementArray(DOM.indices(), Indices);
+	Trash.add (DOM.trash());
+}
+function reload (){
+	$.get("/arraystack/exercise", function(res){
+		var tbody = $("tbody");
+		tbody.empty().append(res);
+		loadNew();
+	})
 }

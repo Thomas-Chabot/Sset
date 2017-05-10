@@ -4,17 +4,25 @@
 
 const CLONE_DRAG = {
   axis: 'x',
-  revert: 'invalid',
-  helper: Draggable.clone
+  revert: 'invalid'
 };
 const NON_CLONE_DRAG = {
   axis: 'x',
   revert: 'invalid'
 }
+const TRASH_DRAG = {
+  axis: 'x',
+  revert: true
+}
 
 function Draggable (elem, isAClone, contained){
 	var dragOpts = isAClone && CLONE_DRAG || NON_CLONE_DRAG;
+	if ($(elem).hasClass('trash')) dragOpts = TRASH_DRAG;
+
 	$(elem).draggable(dragOpts);
+
+	if (isAClone)
+		$(elem).draggable("option", "helper", Draggable.clone);
 
 	if (contained)
 		Draggable.setContainment (elem, contained);
@@ -26,8 +34,7 @@ Draggable.clone = function(elem){
 	else if (elem.toElement) elem = elem.toElement;
 	
 	var newDiv = $(elem).clone()
-	                    .css("position", "relative")
-	                    .data("isClone", true);
+	                    .css("position", "relative");
 
 	Elements.pushFromDOM (newDiv);
 	return newDiv;

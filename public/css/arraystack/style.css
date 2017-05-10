@@ -84,7 +84,7 @@
           padding-left: 3px;
           margin-right: 3em;
           border: 2px solid rgb(204,0,51); /* CU red */ 
-          width: 150px;
+          width: 40px;
           height: 15px;
           display: inline-block;
       }
@@ -115,4 +115,7 @@
       }
       div.element{
         display: inline-block;
+      }
+      img.trash{
+        margin-right: 10px;
       }

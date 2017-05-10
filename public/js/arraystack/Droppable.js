@@ -31,25 +31,34 @@ Droppable.prototype.dropped = function (evt, ui, droppable){
 	var dropped  = ui.helper;
 	var dropEle  = Elements.from (dropped);
 
-	var newDiv   = Draggable.clone (dropped)
-	var list     = droppable.list;
+	// check if the dropped item is trash can
+	if (dropped.hasClass('trash')){
+		if (con){
+			con.remove();
+			elem.removeConnect();
+		}
+	}else{
+		// it wasn't... we're good here
+		var newDiv   = Draggable.clone (dropped)
+		var list     = droppable.list;
 
-	if (con && con != dropped)
-		con.remove();
+		if (con && con != dropped)
+			con.remove();
 
-	if (!dropEle.isClone()){
-		dropped.remove();
-		Elements.remove (dropEle);
+		if (dropEle && !dropEle.isClone()){
+			dropped.remove();
+			Elements.remove (dropEle);
+		}
+
+		elem.connectTo (newDiv);
+		
+		newDiv.appendTo(list.parent()).css('position', 'relative');
+
+		DOM.pushOnTop(newDiv, droppable.elem);
+
+		// make it so it clones!
+		Draggable.setToClone(newDiv).setContainment(newDiv, list);
 	}
-
-	elem.connectTo (newDiv);
-	
-	newDiv.appendTo(list.parent()).css('position', 'relative');
-
-	DOM.pushOnTop(newDiv, droppable.elem);
-
-	// make it so it clones!
-	Draggable.setToClone(newDiv).setContainment(newDiv, list);
 
 	// and reposition all the elements that we have so they look nice
 	Droppers.reposition();

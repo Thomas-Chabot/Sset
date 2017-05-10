@@ -14,9 +14,13 @@
   <script src="js/arraystack/DOM.js"></script>
   <script src="js/arraystack/Draggable.js"></script>
   <script src="js/arraystack/Droppable.js"></script>
+  <script src="js/arraystack/Resizable.js"></script>
   <script src="js/arraystack/Dropper.js"></script>
   <script src="js/arraystack/Element.js"></script>
+  <script src="js/arraystack/Trash.js"></script>
+  <script src="js/arraystack/Set.js"></script>
   <script src="js/arraystack/Row.js"></script>
+  <script src="js/arraystack/Indices.js"></script>
   <script src="js/arraystack/ElementArray.js"></script>
   <script src="js/arraystack/DropArray.js"></script>
   <script src="js/arraystack/main.js"></script>
@@ -44,98 +48,111 @@
     	Starting with an Array Stack that is initially empty, illustrate the evolution of the stack as the following operations are performed.
        <p>
        <table id="question">
-       	<tbody>
+       	<tbody><!--
           <tr id="row0" data-index='0'>
-            <td>add(0, '<div class="element">x</div>');<div class="element">y</div></td>
+            <td>add(0, '<div class="element">x</div>');</td>
             <td>
-              <ul class="textin items" id="set0">
+            <ul class="textin items" id="set0" data-def-size="1">
                 <li><div class="droppable" data-index="0"></div></li
-                ><li><div class="droppable" data-index="1"></div></li
-                ><li><div class="droppable" data-index="2"></div></li
-                ><li><div class="droppable" data-index='3'></div></li
-                ><li><div class="droppable" data-index='4'></div></li
-                ><li><div class="droppable" data-index='5'></div></li
-                ><li><div class="droppable" data-index='6'></div></li>
-              </ul>
+              ></ul
+              ><img class="trash" src="img/trash.jpg" height="10" width="10">
             </td>
             <td>
               <a class="button" href="nojavascript.html" onclick="Button.check(this); return false">Check</a>
               <a class="button" href="nojavascript.html" onclick="Button.reset(this); return false">Reset</a>
             </td>
             <td>
-              <span class="hidden" id="c">xyy</span>
+              <span class="hidden" id="c">x</span>
             </td>
           </tr>
           <tr id="reset0" class="hidden" data-index='0'>
-            <td>add(0, '<div class="element">x</div>');<div class="element">y</div></td>
+            <td>add(0, '<div class="element">x</div>');</td>
             <td>
-              <ul class="textin items" id="set0">
-                <li><div class="droppable" data-index='0'></div></li
-                ><li><div class="droppable" data-index='1'></div></li
-                ><li><div class="droppable" data-index='2'></div></li
-                ><li><div class="droppable" data-index='3'></div></li
-                ><li><div class="droppable" data-index='4'></div></li
-                ><li><div class="droppable" data-index='5'></div></li
-                ><li><div class="droppable" data-index='6'></div></li>
-              </ul>
+              <ul class="textin items" id="set0" data-def-size="1">
+                <li><div class="droppable" data-index="0"></div></li
+              ></ul
+              ><img class="trash" src="img/trash.jpg" height="10" width="10">
             </td>
             <td>
               <a class="button" href="nojavascript.html" onclick="Button.check(this); return false">Check</a>
               <a class="button" href="nojavascript.html" onclick="Button.reset(this); return false">Reset</a>
             </td>
             <td>
-              <span class="hidden" id="c">xyy</span>
+              <span class="hidden" id="c">x</span>
             </td>
           </tr>
-          <tr><td></td><td><span class="textin">01234567</span></td></tr>
+          <tr id="indices0" class="indices"><td></td><td><span class="textin">0</span></td></tr>
           <tr id="row1" data-index='1'>
-            <td>add(0, '<div class="element">z</div>');<div class="element">y</div></td>
+            <td>add(0, '<div class="element">y</div>');</td>
             <td>
-              <ul class="textin items" id="set1">
-                <li><div class="droppable" data-index='0'></div></li
-                ><li><div class="droppable" data-index='1'></div></li
-                ><li><div class="droppable" data-index='2'></div></li
-                ><li><div class="droppable" data-index='3'></div></li
-                ><li><div class="droppable" data-index='4'></div></li
-                ><li><div class="droppable" data-index='5'></div></li
-                ><li><div class="droppable" data-index='6'></div></li>
-              </ul>
+              <ul class="textin items" id="set1" data-def-size="1">
+                <li><div class="droppable" data-index="0"></div></li
+              ></ul
+              ><img class="trash" src="img/trash.jpg" height="10" width="10">
             </td>
             <td>
               <a class="button" href="nojavascript.html" onclick="Button.check(this); return false">Check</a>
               <a class="button" href="nojavascript.html" onclick="Button.reset(this); return false">Reset</a>
             </td>
             <td>
-              <span class="hidden" id="c">xzyy</span>
+              <span class="hidden" id="c">yx</span>
             </td>
           </tr>
           <tr id="reset1" class="hidden" data-index='1'>
-            <td>add(0, '<div class="element">z</div>');<div class="element">y</div></td>
+            <td>add(0, '<div class="element">y</div>');</td>
             <td>
-              <ul class="textin items" id="set1">
-                <li><div class="droppable" data-index='0'></div></li
-                ><li><div class="droppable" data-index='1'></div></li
-                ><li><div class="droppable" data-index='2'></div></li
-                ><li><div class="droppable" data-index='3'></div></li
-                ><li><div class="droppable" data-index='4'></div></li
-                ><li><div class="droppable" data-index='5'></div></li
-                ><li><div class="droppable" data-index='6'></div></li>
-              </ul>
+              <ul class="textin items" id="set1" data-def-size="1">
+                <li><div class="droppable" data-index="0"></div></li
+              ></ul
+              ><img class="trash" src="img/trash.jpg" height="10" width="10">
             </td>
             <td>
               <a class="button" href="nojavascript.html" onclick="Button.check(this); return false">Check</a>
               <a class="button" href="nojavascript.html" onclick="Button.reset(this); return false">Reset</a>
             </td>
             <td>
-              <span class="hidden" id="c">xzyy</span>
+              <span class="hidden" id="c">yx</span>
             </td>
           </tr>
-          <tr><td></td><td><span class="textin">01234567</span></td></tr>
+          <tr id="indices1" class="indices"><td></td><td><span class="textin">0</span></td></tr>
+          <tr id="row2" data-index='2'>
+            <td>add(0, '<div class="element">z</div>');</td>
+            <td>
+              <ul class="textin items" id="set2" data-def-size="1">
+                <li><div class="droppable" data-index="0"></div></li
+              ></ul
+              ><img class="trash" src="img/trash.jpg" height="10" width="10">
+            </td>
+            <td>
+              <a class="button" href="nojavascript.html" onclick="Button.check(this); return false">Check</a>
+              <a class="button" href="nojavascript.html" onclick="Button.reset(this); return false">Reset</a>
+            </td>
+            <td>
+              <span class="hidden" id="c">zyx </span>
+            </td>
+          </tr>
+          <tr id="reset2" class="hidden" data-index='2'>
+            <td>add(0, '<div class="element">z</div>');</td>
+            <td>
+              <ul class="textin items" id="set2" data-def-size="1">
+                <li><div class="droppable" data-index="0"></div></li
+              ></ul
+              ><img class="trash" src="img/trash.jpg" height="10" width="10">
+            </td>
+            <td>
+              <a class="button" href="nojavascript.html" onclick="Button.check(this); return false">Check</a>
+              <a class="button" href="nojavascript.html" onclick="Button.reset(this); return false">Reset</a>
+            </td>
+            <td>
+              <span class="hidden" id="c">zyx </span>
+            </td>
+          </tr>
+          <tr id="indices2" class="indices"><td></td><td><span class="textin">0</span></td></tr>
+          -->
        	</tbody>
        </table>
        <p>
-       <a class="button hidden" href="nojavascript.html" onclick="loadExercise(); return false">Do it again!</a><p>
-    
+       <a class="button" href="nojavascript.html" onclick="Button.reload(); return false">Do it again!</a><p>
     </div>
     </div> <!-- contents -->
   </body>
