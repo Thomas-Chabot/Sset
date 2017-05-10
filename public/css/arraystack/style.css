@@ -118,4 +118,5 @@
       }
       img.trash{
         margin-right: 10px;
+        z-index: 99;
       }

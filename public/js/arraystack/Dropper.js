@@ -5,12 +5,14 @@ function Dropper (e){
 
 Dropper.prototype.connectTo = function(d){
 	this.elem.data("connected", d);
+
+	checkIncorrect (this.elem);
 }
 Dropper.prototype.getConnect = function(){
 	return this.elem.data("connected");
 }
 Dropper.prototype.removeConnect = function(){
-	this.elem.data("connected", null);
+	this.connectTo(null);
 }
 
 Dropper.prototype.val = function(){

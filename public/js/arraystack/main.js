@@ -15,6 +15,13 @@ $(function(){
 	reload ();
 });
 
+function checkIncorrect (d){
+	var row = DOM.rowFrom (d);
+	var r   = Rows.from (row);
+	if (!r.check ())
+		Colors.incorrect(r);
+}
+
 function addNewElements (elements) {
 	// Clean up anything that no longer exists ...
 	Rows.cleanup();

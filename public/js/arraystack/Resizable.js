@@ -7,6 +7,7 @@ function Resizable (list){
 		resize: function(e, u){
 			Resizable.updateIndices (list);
 			Resizable.updateDroppers (list);
+			checkIncorrect (list);
 		}
 	})
 }

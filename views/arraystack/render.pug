@@ -2,19 +2,14 @@ tr(id="row" + qNum,data-index=qNum)
   td
     - if (op === "add"){
     | add(
-    | #{index}
-    | , '
-    div(class='element')= value
-    | ');
+    | #{index}, '
+    div(class='element')=value
+    |');
     - } else if (op === "remove") {
-    | remove(
-    | #{index}
-    | );
+    | remove(#{index});
     - } else {
-    | set(
-    | #{index}
-    | , '
-    div(class='element')= value
+    | set(#{index}, '
+    div(class='element')=value
     | ');
     - }
   td
@@ -31,19 +26,14 @@ tr(id="reset" + qNum,class="hidden",data-index=qNum)
   td
     - if (op === "add"){
     | add(
-    | #{index}
-    | , '
-    div(class='element')= value
-    | ');
+    | #{index}, '
+    div(class='element')=value
+    |');
     - } else if (op === "remove") {
-    | remove(
-    | #{index}
-    | );
+    | remove(#{index});
     - } else {
-    | set(
-    | #{index}
-    | , '
-    div(class='element')= value
+    | set(#{index}, '
+    div(class='element')=value
     | ');
     - }
   td

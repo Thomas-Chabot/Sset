@@ -21,7 +21,7 @@ Button.check = function (btn){
 
 		var rowObj  = Rows.from (nextRow);
 
-		if (!rowObj.check ())
+		if (!rowObj.isC)
 			row.copyTo (rowObj);
 	}
 	else

@@ -20,6 +20,7 @@ Colors.set = function (row, isCorrect){
 		btn.removeClass("correct");
 	}
 
+	row.setColor (isCorrect === 1);
 	tr.data("correct", isCorrect);
 }
 

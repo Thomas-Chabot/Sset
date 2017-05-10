@@ -2,6 +2,7 @@ function Row(elem){
 	this.element   = $(elem);
 	this.ans       = new Answer(this);
 	this.set       = new Set(elem);
+	this.isC       = false;
 }
 
 Row.prototype.getAnswer = function (){
@@ -12,6 +13,9 @@ Row.prototype.getAnswer = function (){
 	return answer;
 }
 
+Row.prototype.setColor = function(c){
+	this.isC = c;
+}
 Row.prototype.check = function(){
 	var a = this.getAnswer();
 	return this.ans.check (a);
@@ -46,7 +50,7 @@ Row.prototype.clonePrevious = function(){
 	var previousRowObj = Rows.from(previousRow);
 	if (!previousRowObj) return;
 
-	if (previousRowObj.check())
+	if (previousRowObj.isC)
 		previousRowObj.copyTo (this);
 
 	return this;
@@ -54,7 +58,7 @@ Row.prototype.clonePrevious = function(){
 
 Row.prototype.copyTo = function(r2){
 	// if we're going to copy elements, remove all the elements of the row first
-	if (r2.check())
+	if (r2.isC)
 		return;
 	r2.reset();
 
@@ -67,7 +71,7 @@ Row.prototype.copyTo = function(r2){
 
 Row.prototype.copyDroppers = function(r2, newParent){
 	r2.resize (this.set.getSize());
-	
+
 	var d1 = Droppers.within (this.element);
 	var d2 = Droppers.within (r2.getElem());
 
