@@ -4,7 +4,7 @@
 
 const DROP_OPTS = {
 	classes: {
-	  "ui-droppable-hover": "ui-state-hover"
+	  "ui-droppable-hover": "hover"
     }
 }
 

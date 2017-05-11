@@ -13,6 +13,8 @@ const ROW  = "tr";
 const INDS = "tr.indices";
 const SPIN = "span.textin";
 const RESH = "div.ui-resizable-handle";
+const NODB = "#doubleSize";
+const NOHV = "#halfSize";
 
 DOM.all = function(selector, from){
 	return $(selector, from).add($(from).filter(selector));
@@ -86,6 +88,12 @@ DOM.indices = function(){
 }
 DOM.trash = function(){
 	return $(TRSH);
+}
+DOM.noteDoubled = function(){
+	return $(NODB);
+}
+DOM.noteHalved = function(){
+	return $(NOHV);
 }
 
 DOM.makeListItem = function(){

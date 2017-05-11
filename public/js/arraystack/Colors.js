@@ -4,6 +4,8 @@
 
 var Colors = { };
 
+const HIGHLIGHT_TIME = 1000;
+
 Colors.set = function (row, isCorrect){
 	// find everything
 	var tr = row.getElem();
@@ -30,4 +32,13 @@ Colors.correct = function (row){
 
 Colors.incorrect = function (row){
 	Colors.set (row, 0);
+}
+
+Colors.highlight = function (el){
+	if (el.hasClass("highlight")) return;
+	el.addClass ("highlight");
+
+	setTimeout(function(){
+		el.removeClass ("highlight");
+	}, HIGHLIGHT_TIME);
 }

@@ -47,6 +47,22 @@
       }
       div.exercise {
       }
+      div.note:before{
+        font-weight: bold;
+        content: "NOTE: ";
+      }
+      div.note{
+        font-size: 12pt;
+      }
+      div.note > ul {
+        margin-top: 0;
+      }
+      div.note > ul > li {
+        font-size: 12pt;
+      }
+      div.note > ul > li.highlight{
+        font-weight: bold;
+      }
       div.droppable {
       	height: 80%;
       	display: inline-block;
@@ -55,6 +71,10 @@
       	margin-left: 0;
       	margin-right: 0;
         width: 20px;
+      }
+      div.droppable.hover{
+        opacity: 0.4;
+        background-color: #000;
       }
       div.over {
         position: absolute;

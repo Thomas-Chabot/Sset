@@ -18,7 +18,7 @@ $(function(){
 function checkIncorrect (d){
 	var row = DOM.rowFrom (d);
 	var r   = Rows.from (row);
-	if (!r.check ())
+	if (!r.correct ())
 		Colors.incorrect(r);
 }
 

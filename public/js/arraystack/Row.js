@@ -5,6 +5,10 @@ function Row(elem){
 	this.isC       = false;
 }
 
+Row.prototype.correct = function(){
+	return this.ans.check (this.getAnswer(), true); // check without doing anything
+}
+
 Row.prototype.getAnswer = function (){
 	var answer = "";
 	Droppers.eachWithin(DOM.rowFrom(this.element), function(elem){
