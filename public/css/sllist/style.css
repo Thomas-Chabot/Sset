@@ -26,6 +26,16 @@
         color: rgb(204,0,51); /* CU red */ 
         margin-left: 9px;
       }
+      a.button.default {
+        border-color: #666;
+        color: #666;
+        border-style: #666;
+      }
+      a.button.check {
+        border-color: #282;
+        color: #282;
+        border-style: #282;
+      }
       a.button:active {
         border-color: black;
         border-style: black;
@@ -35,6 +45,11 @@
          margin: auto;
 	 max-width: 784px;
          text-align: justify;
+      }
+      span#op {
+        display: inline-block;
+        float: right;
+        margin-right: 20%;
       }
       a {
           text-decoration: none;
@@ -91,6 +106,9 @@
       }
       span.checkmark {
           font-size: 200%;
+          color: green;
+          float: right;
+          margin-right: 25px;
       }
       ul.new{
       	display: inline-block;
@@ -123,6 +141,12 @@
       }
       div.node.tail{
         top: 78px;
+      }
+      div.node.cur{
+        top: 150px;
+      }
+      div.node.new{
+        top: 178px;
       }
       div.node > div {
         width: 30px;

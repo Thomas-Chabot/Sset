@@ -1,22 +1,17 @@
-function Answer (correct){
-	this.correctAnswer = correct;
-}
+var Answer = { };
 
-Answer.prototype.getAnswer = function (){
+Answer.setCorrect = function(c){ this.correctAnswer = c; return this; }
+
+Answer.getAnswer = function (){
 	var a = "";
 
-	// its possible to have a loop. check if it starts looping, and if it does, return false
-	var nodesPassed = [ ];
-	var curNode = head;
-	while (curNode){
-		if (nodesPassed.indexOf (curNode) != -1)
-			return false;
-		nodesPassed.push (curNode);
+	var nodes = Nodes.inList ();
+	if (nodes.looping) return false;
 
-		if (!curNode.isPlaceholder())
-			a += curNode.getData ();
-		curNode = curNode.getNext();
-	}
+	nodes.nodes.each(function(n){
+		if (!n.isPlaceholder())
+			a += n.getData();
+	});
 
 	// tail should point at last element. make sure it does ...
 	if (!tail.getNext()) return "";
@@ -25,7 +20,7 @@ Answer.prototype.getAnswer = function (){
 	return a;
 }
 
-Answer.prototype.check = function (){
+Answer.check = function (){
 	return this.correctAnswer === this.getAnswer();
 }
 

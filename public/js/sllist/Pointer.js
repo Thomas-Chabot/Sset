@@ -1,10 +1,11 @@
 var NEXT_ID = 0;
-function Pointer (element){
+function Pointer (element, hasPlumb){
 	var pointer = DOM.pointerFrom (element);
 	pointer.attr("id", "pointer" + NEXT_ID++);
 
 	this.elem = pointer;
-	this.plumb = new Plumbify (this, "source");
+	if (hasPlumb)
+		this.plumb = new Plumbify (this, "source");
 
 	this.next = null;
 
@@ -18,6 +19,9 @@ Pointer.prototype.getSrc = function(){ return this.plumb.getSource(); }
 Pointer.prototype.getEndpoint = function(){ return this.plumb.endpoint; }
 Pointer.prototype.getPrev = function(){ return this.prev; }
 Pointer.prototype.getNext = function(){ return this.next; }
+Pointer.prototype.isDragging = function(){ return this.plumb.isDragging(); }
+Pointer.prototype.setDragging = function(d) { this.plumb.setDragging (d); }
+Pointer.prototype.isAuto = function(){ return !this.getEndpoint().isEnabled(); }
 Pointer.prototype.setNext = function(n){
 	var newNext = findNodeFromTarg (n);
 	this.next = newNext;
@@ -29,11 +33,50 @@ Pointer.prototype.setNext = function(n){
 		if (myNode.isPlaceholder()) return;
 
 		newNext.setPrev (myNode);
+	}else{
+		var m = this.getNext();
+		if (m) m.setPrev (null);
 	}
 }
+
+Pointer.prototype.plumbify = function(){
+	if (this.plumb) this.plumb.remove();
+
+	this.plumb = new Plumbify(this, "source");
+}
+
+Pointer.prototype.reposition = function(){ this.plumb.reposition(); }
+Pointer.prototype.detach = function (){
+	this.plumb.detach ();
+}
+
+Pointer.prototype.connectNext = function(node){
+	this.next = node;
+}
+
 Pointer.prototype.setPrev = function(n){
-	this.prev = findNodeFromTarg (n);
-	console.log("prev is now ", this.prev);
+	if (!n) this.prev = null;
+	else this.prev = findNodeFromTarg (n);
+}
+
+Pointer.prototype.setAuto = function(){
+	this.getEndpoint().setEnabled (false);
+}
+Pointer.prototype.setActive = function(){
+	this.getEndpoint().setEnabled (true);
+}
+
+Pointer.prototype.disconnect = function(){
+	this.connectNext (null);
+	this.plumb.disconnect ();
+}
+Pointer.prototype.connectTo = function(n){
+	this.connectNext (n);
+	this.plumb.connectTo (n.getTargEndpoint(), !this.isAuto());
+}
+
+Pointer.prototype.remove = function (){
+	if (this.plumb) this.plumb.remove ();
 }
 
 function findNodeFromPointer (t){

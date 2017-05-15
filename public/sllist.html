@@ -9,14 +9,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.2.9/jsplumb.min.js"></script>
 
   <script src="/js/sllist/DOM.js"></script>
+  <script src="/js/sllist/Checkmark.js"></script>
   <script src="/js/sllist/Activation.js"></script>
   <script src="/js/sllist/JsPlumb.js"></script>
   <script src="/js/sllist/Pointer.js"></script>
   <script src="/js/sllist/Node.js"></script>
+  <script src="/js/sllist/AutoNode.js"></script>
   <script src="/js/sllist/ElementArray.js"></script>
   <script src="/js/sllist/NodesArray.js"></script>
   <script src="/js/sllist/Answer.js"></script>
+  <script src="/js/sllist/Buttons.js"></script>
+  <script src="/js/sllist/Save.js"></script>
   <script src="/js/sllist/main.js"></script>
+  <script src="/js/sllist/Load.js"></script>
 
     <script 
       src="http://hyphenator.googlecode.com/svn/tags/Version%204.0.0/Hyphenator.js">
@@ -40,6 +45,13 @@
       <div class='exercise'>
     	Starting with a Singly Linked List that is initially empty, illustrate the evolution of the list as the following operations are performed.
        <p>
+        <a class="button check" href="nojavascript.html" onclick="Buttons.check(); return false">Check</a>
+        <a class="button default" href="nojavascript.html" onclick="Buttons.restart(); return false">Restart</a>
+        <a class="button default" href="nojavascript.html" onclick="Buttons.cleanup(); return false">Cleanup</a>
+        <a class="button default" href="nojavascript.html" onclick="Buttons.reset(); return false">Reset</a>
+        <span id="op"></span>
+        <span class="checkmark hidden">✔</span>
+      </p>
          <div id="question">
              <div class="node bigger head">
               <div class="data bigger">HEAD</div>
@@ -47,11 +59,16 @@
             </div><div class="node bigger tail">
               <div class="data bigger">TAIL</div>
               <div class="pointer"></div>
+            </div><div class="node bigger cur">
+              <div class="data bigger">CUR</div>
+              <div class="pointer"></div>
+            </div><div class="node bigger new">
+              <div class="data bigger">NEW</div>
+              <div class="pointer"></div>
             </div>
        </div>
        <br>
        <p>
-       <a class="button" href="nojavascript.html" onclick="Button.reload(); return false">Do it again!</a><p>
     </div>
     </div> <!-- contents -->
   </body>
