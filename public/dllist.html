@@ -1,0 +1,69 @@
+<html lang="en">
+  <head>
+    <title>The SLList</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="css/dllist/style.css">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.2.9/jsplumb.min.js"></script>
+
+  <script src="/js/dllist/DOM.js"></script>
+  <script src="/js/dllist/Checkmark.js"></script>
+  <script src="/js/dllist/Activation.js"></script>
+  <script src="/js/dllist/JsPlumb.js"></script>
+  <script src="/js/dllist/Element.js"></script>
+  <script src="/js/dllist/Pointer.js"></script>
+  <script src="/js/dllist/Index.js"></script>
+  <script src="/js/dllist/Node.js"></script>
+  <script src="/js/dllist/AutoNode.js"></script>
+  <script src="/js/dllist/ElementArray.js"></script>
+  <script src="/js/dllist/NodesArray.js"></script>
+  <script src="/js/dllist/Answer.js"></script>
+  <script src="/js/dllist/Buttons.js"></script>
+  <script src="/js/dllist/Save.js"></script>
+  <script src="/js/dllist/main.js"></script>
+  <script src="/js/dllist/Load.js"></script>
+
+    <script 
+      src="http://hyphenator.googlecode.com/svn/tags/Version%204.0.0/Hyphenator.js">
+    </script>
+  </head>
+  <body lang="en" class="hyphenate">
+    <div class="titleblock">
+      <div class="title">The DLList</div>    
+      <div class="subtitle">A doubly linked list of elements</div>
+    </div>
+    <div id="contents">
+      <p>
+       Watch this video to learn about the DLList.
+      </p>
+         <iframe width="784" height="441" src="http://www.youtube.com/embed/hb5dpfwqWj0?rel=0" frameborder="0" allowfullscreen></iframe> 
+      <p>
+      You can also read about the DLList in <a
+     href="http://opendatastructures.org/ods-java/3_2_DLList_Doubly_Linked_Li.html"
+     target="_blank">Section 3.2</a> of the textbook.
+      </p>
+      <div class='exercise'>
+    	Starting with a Doubly Linked List that is initially empty, illustrate the evolution of the list as the following operations are performed.
+       <p>
+        <a class="button check" href="nojavascript.html" onclick="Buttons.check(); return false">Check</a>
+        <a class="button default" href="nojavascript.html" onclick="Buttons.restart(); return false">Restart</a>
+        <a class="button default" href="nojavascript.html" onclick="Buttons.cleanup(); return false">Cleanup</a>
+        <a class="button default" href="nojavascript.html" onclick="Buttons.reset(); return false">Reset</a>
+        <span id="op"></span>
+        <span class="checkmark hidden">✔</span>
+      </p>
+         <div id="question">
+         </div>
+         <div id="reset" class="hidden">
+         </div>
+       <br>
+       <p>
+    </div>
+    </div> <!-- contents -->
+  </body>
+  <script>Hyphenator.run();</script>
+</html>
+
+
