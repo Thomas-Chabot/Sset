@@ -5,11 +5,14 @@
 */
 function Index (node, opts){
 	if (!node) return false;
+
+	console.log (opts, opts.index);
+
 	this.mainNode = node;
 	this.elem     = DOM.indexFrom (node.getElem ());
 	this.index    = undefined
 
-	if (!opts.index && opts.isDummy) opts.index = -1;
+	if (opts.isDummy) opts.index = -1;
 	this.setIndex (opts.index);
 }
 
@@ -40,6 +43,8 @@ Index.prototype.updateIndices = function (index){
 	var curNode = this.mainNode;
 
 	while (curNode && nodes.indexOf(curNode) === -1){
+		//if (curNode.isDummy) break;
+
 		nodes.push (curNode);
 		curNode.setIndex (index ++);
 		curNode = curNode.getNext();

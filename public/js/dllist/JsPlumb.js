@@ -90,6 +90,7 @@ Plumbify.prototype.disconnect = function(){
 
 Plumbify.prototype.connectTo = function (elem){
 	if (!elem) return;
+	elem = DOM.domify (elem);
 	this.disconnect ();
 
 	this.conn = jsPlumb.connect({

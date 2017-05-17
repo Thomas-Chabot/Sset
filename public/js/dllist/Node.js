@@ -14,10 +14,12 @@ function Node (elem, data, opts){
 	this.nextPtr = new Pointer(nextPointer, opts);
 	this.prevPtr = new Pointer(prevPointer, opts);
 
+	this.isDummy = opts.isDummy;
+
 	var s = this;
 
-	this.nextPtr.nextChanged = function(n){ s.nextChanged (n); }
-	this.prevPtr.nextChanged = function(n){ s.prevChanged (n); }
+	this.nextPtr.nextChanged = function(n, u){ s.nextChanged (n, u); }
+	this.prevPtr.nextChanged = function(n, u){ s.prevChanged (n, u); }
 
 	if (opts.hasEndpoint !== false)
 		this.attachTarget ();
@@ -51,27 +53,36 @@ Node.prototype.getNextEndpoint = function(){ return this.getNextPtr().getEndpoin
 Node.prototype.getPrevEndpoint = function(){ return this.getPrevPtr().getEndpoint(); }
 Node.prototype.getPrev = function(){ return this.getPrevPtr().getNext (); }
 Node.prototype.getNext = function(){ return this.getNextPtr().getNext (); }
-Node.prototype.setPrev = function(n){
-	this.getPrevPtr().setNext (n);
-	this.prevChanged (n);
+Node.prototype.setPrev = function(n, opts){
+	this.getPrevPtr().setNext (n, opts);
+
+	if (opts && opts.drawConnection)
+		this.getPrevPtr ().connectTo (n);
 }
-Node.prototype.setNext = function(n){
-	this.getNextPtr().setNext (n);
-	this.nextChanged (n);
+Node.prototype.setNext = function(n, opts){
+	this.getNextPtr().setNext (n, opts);
+
+	if (opts && opts.drawConnection)
+		this.getPrevPtr ().connectTo (n);
+}
+Node.prototype.connectNext = function(n){
+	if (!n) return;
+	this.getNextPtr ().connectTo (n, {update: false});
+}
+Node.prototype.connectPrev = function(n){
+	if (!n) return;
+	this.getPrevPtr ().connectTo (n, {update: false});
 }
 
-Node.prototype.nextChanged = function(n){ update(); this.indexCon.onNextChanged(n); }
-Node.prototype.prevChanged = function(n){ update(); this.indexCon.onPrevChanged(n); }
-
-Node.prototype.connectNext = function (t){
-	if (!t) return;
-	this.setNext (t);
-	this.getNextPtr().connectTo (t);
+Node.prototype.nextChanged = function(n, u){ 
+	if (u && u.update === false) return;
+	update();
+	this.indexCon.onNextChanged(n);
 }
-Node.prototype.connectPrev = function (t){
-	if (!t) return;
-	this.setPrev (t);
-	this.getPrevPtr().connectTo (t);
+Node.prototype.prevChanged = function(n, u){
+	if (u && u.update === false) return;
+	update();
+	this.indexCon.onPrevChanged(n); 
 }
 
 Node.prototype.attachTarget = function (){
@@ -144,7 +155,8 @@ Node.prototype.clone = function (){
 	var clone = new Node (myElem.clone(), this.getData (), {
 		parent: DOM.clone (),
 		hasEndpoint: false,
-		index: this.getIndex()
+		index: this.getIndex(),
+		isDummy: this.isDummy
 	});
 
 	clone.setClonedFrom (this);

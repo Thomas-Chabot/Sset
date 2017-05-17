@@ -11,22 +11,22 @@ function Pointer (pointer, opts){
 
 Pointer.prototype.getElem = function(){ return this.elem; }
 Pointer.prototype.getPlumb = function(){ return this.plumb; }
-Pointer.prototype.getSrc = function(){ return this.plumb.getSource(); }
-Pointer.prototype.getEndpoint = function(){ return this.plumb.endpoint; }
+Pointer.prototype.getSrc = function(){ return this.plumb && this.plumb.getSource(); }
+Pointer.prototype.getEndpoint = function(){ return this.plumb && this.plumb.endpoint; }
 Pointer.prototype.getPrev = function(){ return this.prev; }
 Pointer.prototype.getNext = function(){ return this.next; }
 Pointer.prototype.isDragging = function(){ return this.plumb.isDragging(); }
 Pointer.prototype.setDragging = function(d) { this.plumb.setDragging (d); }
 Pointer.prototype.isAuto = function(){ return !this.getEndpoint().isEnabled(); }
-Pointer.prototype.setNext = function(n){
+Pointer.prototype.setNext = function(n, u){
 	this.next = n;
-	if (this.nextChanged) this.nextChanged (n);
+	if (this.nextChanged) this.nextChanged (n, u);
 }
 
 Pointer.prototype.plumbify = function(){
 	if (this.plumb) this.plumb.remove();
 
-	this.plumb = new Plumbify(this, {});
+	this.plumb = new Plumbify(this, {hasEndpoint: true});
 }
 
 Pointer.prototype.reposition = function(){ this.plumb.reposition(); }
@@ -53,8 +53,8 @@ Pointer.prototype.disconnect = function(){
 	this.connectNext (null);
 	this.plumb.disconnect ();
 }
-Pointer.prototype.connectTo = function(n){
-	this.setNext (n);
+Pointer.prototype.connectTo = function(n, opts){
+	this.setNext (n, opts);
 	this.plumb.connectTo (n.getElem());
 }
 

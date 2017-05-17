@@ -8,21 +8,26 @@ Save.prototype.update = function (){
 }
 
 Save.prototype.reload = function (){
-	// remove the old nodes ...
-	Nodes.removeAll ();
-	Nodes = this.nodes;
-	this.nodes = null;
-	Nodes.setMain (true);
+	var my = this;
+	jsPlumb.ready (function (){
+		// remove the old nodes ...
+		Nodes.removeAll ();
+		var newNodes = my.nodes;
+		my.nodes = null;
 
-	Nodes.each (function (node){
-		node.attach ();
+		newNodes.each (function (node){
+			node.attach ();
+		});
+		newNodes.each(function(n){ n.applyConnections(); });
+
+		Nodes = newNodes;
+		Nodes.setMain (true);
+
+		reloadPlumbs();
+		updateMainPointers ();
+
+		my.update ();
+
+		update ();
 	});
-
-	Nodes.each(function(n){ n.applyConnections(); });
-	reloadPlumbs();
-	updateMainPointers ();
-
-	this.update ();
-
-	update ();
 }

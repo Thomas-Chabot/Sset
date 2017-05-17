@@ -20,6 +20,8 @@ NodesArray.prototype.findPointer = function(elem){
 // if not pointed to.
 NodesArray.prototype.setActive = function(nodes){
 	this.each (function (n){
+		if (!n) return;
+
 		if (nodes.indexOf (n) === -1)
 			n.disable ();
 		else
@@ -73,7 +75,7 @@ NodesArray.prototype.clonePairings = function (copies){
 			var cpy = findCopy (h);
 			if (!cpy) return;
 
-			el.setNext(cpy);
+			el.setNext(cpy, {update: false, drawConnection: false, updateIndices: false});
 		}
 
 		var h = or.getPrev();
@@ -81,7 +83,7 @@ NodesArray.prototype.clonePairings = function (copies){
 			var cpy = findCopy (h);
 
 			if (!cpy) return;
-			el.setPrev(cpy);
+			el.setPrev(cpy, {update: false, drawConnection: false, updateIndices: false});
 		}
 	});
 }

@@ -32,8 +32,10 @@ function load (){
 		else
 			newNode = null;
 
-		curNode = null;
+		curNode = dummyNode;
 		save.update ();
+
+		update ();
 	})
 }
 
