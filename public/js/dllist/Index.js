@@ -34,6 +34,8 @@ Index.prototype.onNextChanged = function (p){
 }
 
 Index.prototype.updateIndices = function (index){
+	if (index === undefined || isNaN(index)) return; // only update if actual number
+
 	var nodes = [dummyNode];
 	var curNode = this.mainNode;
 
