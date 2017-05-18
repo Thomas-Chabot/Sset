@@ -13,8 +13,10 @@ function Node(e, data, isListNode, bigger, hp){
 	this.isListNode = isListNode !== false;
 
 	if (isListNode !== false) {
-		if (hp !== false)
-			this.targ = new Plumbify (this, "target").draggable();
+		if (hp !== false){
+			this.targ = new Plumbify (this, "target", false);
+			this.targ.target().draggable();
+		}
 
 		// Allow the node to be activated & deactivated
 		this.a = new Activation(this);
@@ -36,7 +38,8 @@ Node.prototype.getPtr = function(){ return this.ptr; }
 Node.prototype.getElem = function(){ return this.node; }
 Node.prototype.getSrc = function(){ return this.ptr.getSrc(); }
 Node.prototype.getSrcEndpoint = function(){ return this.ptr.getEndpoint(); }
-Node.prototype.getTargEndpoint = function(){ return this.targ && this.targ.endpoint; }
+Node.prototype.getTargEndpoint = function(){ return this.getTarg(); }
+Node.prototype.getTarget = function(){ return this.targ; }
 Node.prototype.getTarg = function(){ return this.targ && this.targ.getSource(); }
 Node.prototype.getNext = function(){ return this.ptr && this.ptr.getNext(); }
 Node.prototype.getPrev = function(){ return this.ptr && this.ptr.getPrev(); }
@@ -134,16 +137,15 @@ Node.prototype.connectTo = function (n, forced){
 
 Node.prototype.setEnabled = function (n){
 	var srcEndpoint = this.getSrcEndpoint();
-	var targEndpoint = this.getTargEndpoint();
+	var targ = this.getTarget();
 
-	if (!srcEndpoint || !targEndpoint) return;
+	if (!srcEndpoint || !targ) return;
 	srcEndpoint.setEnabled (n);
-	targEndpoint.setEnabled (n);
+	targ.setTargEnabled (n);
 
 	// hacks
 	var f = (n === true) ? "removeClass" : "addClass";
 	srcEndpoint[f] ("disabled");
-	targEndpoint[f] ("disabled");
 	this.node[f] ("disabled");
 
 	this.getPtr ().setEnabled (n);

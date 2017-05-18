@@ -48,15 +48,18 @@ function getNextElemFrom (root){
 }
 
 function pushToFrom (arr, node){
-	var el = getNextElemFrom (node);
-	if (el) arr.push (el);
+	if (node) arr.push(node);
 }
 
 function updateActive(){
 	var n = getNextElemFrom (cur);
 	var activeNodes = getActiveNodes (n);
 
-	pushToFrom (activeNodes, cur.getNext());
+	var next = cur.getNext ();
+	var n    = next && next.getNext();
+
+	pushToFrom (activeNodes, next);
+	pushToFrom (activeNodes, n)
 	pushToFrom (activeNodes, newN);
 	pushToFrom (activeNodes, head);
 	pushToFrom (activeNodes, tail);

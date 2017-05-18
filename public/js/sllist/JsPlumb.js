@@ -29,11 +29,13 @@ const DRAG_OPTS = {
 	containment: true,
 }
 
-function Plumbify (item, typ){
+function Plumbify (item, typ, hasEndpoint){
 	this.item = item;
 	this.src  = item.getElem();
 	this.dragging = false;
-	this.addEndpoint (this.src, typ);
+
+	if (hasEndpoint !== false)
+		this.addEndpoint (this.src, typ);
 
 	return this;
 }
@@ -53,6 +55,17 @@ Plumbify.prototype.addEndpoint = function(elem, typ){
 	my.endpoint = jsPlumb.addEndpoint($(elem).attr("id"), { 
 	  anchors: anchor
 	}, cls);
+}
+
+Plumbify.prototype.target = function(){
+	jsPlumb.makeTarget (this.src, {
+		endpoint: "Blank",
+		anchor: [ "Perimeter", { shape:"Rectangle" } ]
+	});
+	return this;
+}
+Plumbify.prototype.setTargEnabled = function(n){
+	jsPlumb.setTargetEnabled (this.src, n);
 }
 
 Plumbify.prototype.draggable = function(elem){

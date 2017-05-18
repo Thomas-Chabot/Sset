@@ -14,7 +14,7 @@ NodesArray.prototype.setMain = function(n){ this.isMain = n; }
 // if not pointed to.
 NodesArray.prototype.setActiveNodes = function(nodes){
 	this.each (function (n){
-		if (nodes.indexOf (DOM.from(n.getElem())) === -1)
+		if (nodes.indexOf (n) === -1)
 			n.disable ();
 		else
 			n.enable ();
