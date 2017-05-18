@@ -142,6 +142,17 @@ NodesArray.prototype.backwards = function (){
 	return this.loopOverList (function (n){ return n.getPrev(); });
 }
 
+// Check if some node appears in the list
+NodesArray.prototype.isInList = function (n){
+	var res = false;
+	this.loopOverList (function (node){
+		if (node === n)
+			res = true;
+		return node.getNext ();
+	});
+	return res;
+}
+
 // Any Node that can be reached by some path.
 // Would be all nodes in the list w/ all extra pointers (tail, new, cur)
 NodesArray.prototype.accessible = function (){

@@ -63,7 +63,7 @@ Node.prototype.setNext = function(n, opts){
 	this.getNextPtr().setNext (n, opts);
 
 	if (opts && opts.drawConnection)
-		this.getPrevPtr ().connectTo (n);
+		this.getNextPtr ().connectTo (n);
 }
 Node.prototype.connectNext = function(n){
 	if (!n) return;

@@ -35,7 +35,6 @@ Activation.prototype.mousedOver = function(){
 }
 
 function canBeCurrent (node){
-	if (node === newNode) return false;
 	return true;
 }
 function setActiveNode (n){
@@ -60,8 +59,9 @@ function getReachableFrom (nodes){
 
 function update (){
 	var active = [dummyNode, curNode, newNode];
-	var all    = getReachableFrom ([curNode, newNode]);
+	var all    = getReachableFrom ([curNode]);
 	all.push (dummyNode);
+	all.push (newNode);
 
 	Nodes.setActive (all);
 }
