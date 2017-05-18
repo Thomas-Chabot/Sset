@@ -95,7 +95,29 @@ Plumbify.prototype.detach = function (){
 	jsPlumb.detachAllConnections(this.src);
 }
 
+Plumbify.prototype.setEnabled = function(n){
+	var endpoint = this.endpoint;
+	var connects = endpoint.connections;
+
+	for (var i in connects){
+		enableConnection (connects[i], n);
+	}
+}
+
+
 // static functions
+function enableConnection (conn, isEnabled){
+	var connector = conn && conn.connector;
+	var svg       = connector && connector.svg;
+
+	if (!svg) return;
+
+	if (isEnabled)
+		$(svg).removeClass ("disabled");
+	else
+		$(svg).addClass ("disabled");
+}
+
 function findPlumb (fromSrc){
 	if (!fromSrc) return null;
 	fromSrc = $(fromSrc);

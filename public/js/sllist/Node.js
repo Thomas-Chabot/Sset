@@ -126,10 +126,27 @@ Node.prototype.connectTo = function (n, forced){
 	if (n.isPlaceholder()) return;
 	if (!forced && newN.getNext() === n && !n.getPrev() && !n.getNext()) return;
 
-	this.ptr.connectTo (n);
+	this.ptr.connectTo (n, false);
 	this.ptr.connectNext (n);
 
 	if (this.isPlaceholder()) updateActive();
+}
+
+Node.prototype.setEnabled = function (n){
+	var srcEndpoint = this.getSrcEndpoint();
+	var targEndpoint = this.getTargEndpoint();
+
+	if (!srcEndpoint || !targEndpoint) return;
+	srcEndpoint.setEnabled (n);
+	targEndpoint.setEnabled (n);
+
+	// hacks
+	var f = (n === true) ? "removeClass" : "addClass";
+	srcEndpoint[f] ("disabled");
+	targEndpoint[f] ("disabled");
+	this.node[f] ("disabled");
+
+	this.getPtr ().setEnabled (n);
 }
 
 Node.prototype.disable = function(forced){
@@ -145,31 +162,11 @@ Node.prototype.disable = function(forced){
     if (this.isDragging ()) return;
 
     // past all that, it can be disabled, so go do that
-	var srcEndpoint = this.getSrcEndpoint();
-	var targEndpoint = this.getTargEndpoint();
-
-	if (!srcEndpoint || !targEndpoint) return;
-	srcEndpoint.setEnabled (false);
-	targEndpoint.setEnabled (false);
-
-	// this is terrible. should think of a better way to do this
-	srcEndpoint.addClass ("disabled");
-	targEndpoint.addClass ("disabled");
-	this.node.addClass ("disabled");
+    this.setEnabled (false);
 }
 
 Node.prototype.enable = function(){
-	var srcEndpoint = this.getSrcEndpoint();
-	var targEndpoint = this.getTargEndpoint();
-
-	if (!srcEndpoint || !targEndpoint) return;
-	srcEndpoint.setEnabled (true);
-	targEndpoint.setEnabled (true);
-
-	// this is terrible. should think of a better way to do this [2]
-	srcEndpoint.removeClass ("disabled");
-	targEndpoint.removeClass ("disabled");
-	this.node.removeClass ("disabled");
+    this.setEnabled (true);
 }
 
 Node.prototype.remove = function (){

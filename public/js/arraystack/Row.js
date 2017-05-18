@@ -6,7 +6,7 @@ function Row(elem){
 }
 
 Row.prototype.correct = function(){
-	return this.ans.check (this.getAnswer(), true); // check without doing anything
+	return this.isC && this.ans.check (this.getAnswer(), true); // check without doing anything
 }
 
 Row.prototype.getAnswer = function (){
@@ -62,7 +62,7 @@ Row.prototype.clonePrevious = function(){
 
 Row.prototype.copyTo = function(r2){
 	// if we're going to copy elements, remove all the elements of the row first
-	if (r2.isC)
+	if (r2.correct())
 		return;
 	r2.reset();
 

@@ -59,6 +59,10 @@ Pointer.prototype.setPrev = function(n){
 	else this.prev = findNodeFromTarg (n);
 }
 
+Pointer.prototype.setEnabled = function (n){
+	this.plumb.setEnabled (n);
+}
+
 Pointer.prototype.setAuto = function(){
 	this.getEndpoint().setEnabled (false);
 }
@@ -70,9 +74,10 @@ Pointer.prototype.disconnect = function(){
 	this.connectNext (null);
 	this.plumb.disconnect ();
 }
-Pointer.prototype.connectTo = function(n){
+Pointer.prototype.connectTo = function(n, notSticky){
+	var a = (notSticky === true) ? true : !this.isAuto ();
 	this.connectNext (n);
-	this.plumb.connectTo (n.getTargEndpoint(), !this.isAuto());
+	this.plumb.connectTo (n.getTargEndpoint(), a);
 }
 
 Pointer.prototype.remove = function (){
