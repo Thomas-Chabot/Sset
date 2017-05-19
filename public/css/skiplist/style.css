@@ -2,7 +2,7 @@
         font: 14pt/22pt serif;
       }
       .disabled{
-        opacity: 0.3;
+        opacity: 0.5;
       }
       div.titleblock {
         /* background-color: #abcdd9; */
@@ -93,7 +93,7 @@
       }
       #question {
           font-family: monospace;
-          width: 90%;
+          width: 800px;
           height: 80%;
           border: 1px solid black;
           position: absolute;

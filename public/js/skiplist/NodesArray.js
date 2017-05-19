@@ -26,13 +26,17 @@ NodesArray.prototype.setActive = function(nodes){
 }
 
 // Given a data value, adds it into the list as the new node
-NodesArray.prototype.add = function (value){
+NodesArray.prototype.add = function (value, index){
 	var newNode = new Node(undefined, value, {});
-	this.push (newNode);
+	this.push (newNode, index);
 }
 
 // Push a new element into the array ...
 // Sets the new element as the current node & sets newN's pointer
-NodesArray.prototype.push = function(n){
-	this.elements.push (n);
+NodesArray.prototype.push = function(n, index){
+	var e = this.elements;
+	if ((!index && index !== 0) || index<0)
+		index = e.length;
+	
+	e.splice(index, 0, n);
 }

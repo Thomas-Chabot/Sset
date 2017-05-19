@@ -69,6 +69,26 @@ ElementArray.prototype.findAll = function(f){
 	return new ElementArray(results, this.ObjType);
 }
 
+// Find element with data closest to given value
+ElementArray.prototype.findClosest = function (d){
+	var previous, result, index;
+	this.each(function(elem, i){
+		if (elem.getData () > d){
+			result = previous;
+			return false;
+		}
+		
+		previous = elem;
+		index    = i;
+	});
+	
+	if (!result) result = previous;
+	return {
+		elem: result,
+		index: index
+	};
+}
+
 // contains
 ElementArray.prototype.contains = function(el){
 	return this.elements.indexOf(el) != -1;
@@ -86,8 +106,9 @@ ElementArray.prototype.pushFromDOM = function(e){
 	// normally pushing doesn't return. but in this case, it should
 	return newObj;
 }
-ElementArray.prototype.push = function(newElem){
-	this.elements.push (newElem);
+ElementArray.prototype.push = function(newElem, index){
+	if (!index && index !== 0) index = this.size();
+	this.elements.splice (index, 0, newElem);
 }
 ElementArray.prototype.pushUnique = function (newElem){
 	if (this.contains (newElem)) return;
@@ -187,8 +208,8 @@ ElementArray.prototype.toArray = function(){
 // convert to dictionary ... calls function on each element
 ElementArray.prototype.toDict = function (keyFunc, valFunc){
 	var dict = { };
-	this.each (function (n){
-		dict[keyFunc(n)] = valFunc(n);
+	this.each (function (n, i){
+		dict[keyFunc(n, i)] = valFunc(n, i);
 	});
 	return dict;
 }
