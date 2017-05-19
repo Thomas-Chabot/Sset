@@ -6,7 +6,7 @@ function Answer (data){
 }
 
 Answer.prototype.newPath = function (){
-	var elems = new NodesArray (build.getElements ());
+	var elems = build.getElements ();
 	var rand  = elems.random ();
 	var data  = rand && rand.getData ();
 	

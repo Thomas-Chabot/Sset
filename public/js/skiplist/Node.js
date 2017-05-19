@@ -9,7 +9,7 @@ function Node (elem, data, opts){
 	this.elem = $(elem).appendTo (opts.parent).attr ("id", "Node" + this.uniqId);
 
 	if (opts.position)
-		this.elem.css (opts.position);
+		this.setPosition (opts.position);
 
 	var nextPointer = DOM.nextFrom (elem);
 
@@ -21,26 +21,32 @@ function Node (elem, data, opts){
 
 	if (opts.hasEndpoint !== false)
 		this.attachTarget ({centered: (data === true)});
-
+	
 	this.enabled = true;
 	this.down = null;
 
 	this.activate = new Activation (this);
 }
 
+Node.prototype.setPosition = function(p){
+	this.elem.css (p);
+}
+
 Node.prototype.getElem = function(){ return this.elem; }
 
 Node.prototype.getClonedFrom = function(){ return this.clonedFrom; }
 Node.prototype.setClonedFrom = function(n){ this.clonedFrom = n; }
+Node.prototype.hideData = function(){
+	$(DOM.dataFrom (this.elem)).addClass ("hidden");
+}
+
 Node.prototype.setData = function(d){
 	this.data = d;
 
-	var elem = $(DOM.dataFrom (this.elem));
-
 	if (d === true)
-		elem.addClass ("hidden");
+		this.hideData ();
 	else
-		elem.text(d);
+		 $(DOM.dataFrom (this.elem)).text(d);
 }
 
 Node.prototype.isBottom = function(){ return this.getDown() === undefined || this.getDown () === null; }

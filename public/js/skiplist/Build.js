@@ -49,75 +49,145 @@ Build.prototype.getElPosition = function (i, n){
 }
 
 Build.prototype.makeSentinel = function (rowNum, n, height){
-	var position = {
-		top: height,
-		left: this.getElPosition (-1, n)
-	}
-
-	var n = new Node(undefined, true, {parent: DOM.question(), position: position, enabled: true})
-	this.sentinel.push (n);
-
-	return n;
+	var node = this.makeNode (-1, -1, n, height, rowNum);
+	node.hideData ();
+	return node;
 }
 
 Build.prototype.getElements = function(){ return this.elems; }
+
+Build.prototype.getTower = function (i, data){
+	if (!this.towers.get (i))
+		this.towers.set (i, new Tower (data));
+	return this.towers.get (i);
+}
+Build.prototype.addTower = function (i, data){
+	this.towers.push (new Tower(data), i);
+}
+
+Build.prototype.addRow = function (rows, rowNum){
+	// make the row....
+	var height = this.getRowHeight (rowNum, rows.length);
+	var n = new NodesArray ();
+	this.nodes[rowNum] = n;
+	
+	// make a sentinel node
+	var p = this.makeSentinel (rowNum, rows[rowNum].length, height);
+	
+	return {row: n, sentinel: p};
+}
+
+Build.prototype.positionNode = function (node, height, i, n){
+	var position = {
+		top: height,
+		left: this.getElPosition (i, n)
+	};
+	
+	node.setPosition (position);
+}
+
+Build.prototype.reposition = function (){
+	var len = this.nodes.length;
+	var bld = this;
+	
+	var rowLength = this.nodes[0].size ();
+	var indices = this.nodes[0].toDict (function (n, i){ return n; },
+										function (n, i){ return i; });
+	
+	for (var i in this.nodes){
+		var row = this.nodes[i];
+		row.each (function (elem, index){
+			var height = bld.getRowHeight (i, len);
+			bld.positionNode (elem, height, indices[elem], rowLength);
+			
+		});
+	}
+	
+	jsPlumb.repaintEverything ();
+}
+
+Build.prototype.makeNode = function(data, i, n, height, rowNum){
+	var question = DOM.question ();
+	
+	// add a new node for the element
+	var node = new Node (undefined, data, {parent: question, enabled: true});
+	
+	// give it a position
+	this.positionNode (node, height, i, n);
+	
+	// push it into places
+	this.getTower (i + 1, data).push (node);
+	Nodes.push (node);
+	this.nodes[rowNum].push (node, i+1);
+	
+	if (rowNum === 0 && i>=0)
+		this.elems.push (node);
+	
+	return node;
+}
+
+Build.prototype.addElement = function (data){
+	var bottomRow = this.nodes[0];
+	var prev = bottomRow.findClosest (data);
+	var n    = bottomRow.size();
+	var pi   = prev.index;
+	
+	this.addTower (pi+1, data);
+	
+	var nodeHeight = Skiplist.calculateHeight ();
+	// Here, if nodeHeight > skiplistHeight, the skiplist should grow to new height -
+	// which I'll implement at some point. For now, limit the height to max height of skiplist ....
+	if (nodeHeight > this.numRows) nodeHeight = this.numRows;
+	
+	// i don't even know why, but he's coming for you - yeah, he's coming for you.
+	for (var i = 0; i < nodeHeight; i++){
+		var height = this.getRowHeight (i, this.numRows);
+		var node   = this.makeNode (data, pi, n, height, i);
+	}
+	
+	this.reposition ();
+}
 
 Build.prototype.build = function (rows){
 	var question = DOM.question ();
 
 	Nodes = new NodesArray ();
-	var towers = new ElementArray ();
-	var elements = [ ];
+	this.towers = new ElementArray ();
+	this.elems  = new NodesArray ();
 
 	var prevNode;
-
-	this.sentinel = new Tower();
+	
+	this.nodes = [ ];
 
 	for (var rowNum = 0; rowNum < rows.length; rowNum ++){
 		var height = this.getRowHeight (rowNum, rows.length);
 		var row = rows[rowNum];
-		var newNodes = new ElementArray ();
-
-		prevNode = this.makeSentinel (rowNum, rows[rowNum].length, height);
-		Nodes.push (prevNode);
-
+		
+		var r = this.addRow (rows, rowNum);
+		prevNode = r.sentinel;
+		
 		for (var i = 0; i < row.length; i++){
 			if (!row[i]) continue;
-			if (!towers.get (i)) towers.set(i, new Tower(row[i]));
 
-			var position = {
-				top: height,
-				left: this.getElPosition (i, row[i].length)
-			}
-
-			// add a new node for the element
-			var n = new Node (undefined, row[i], {parent: question, position: position, enabled: true});
-			towers.get(i).push (n);
-			newNodes.push (n);
-
-			if (rowNum === 0)
-				elements.push (n);
-			
-			Nodes.push (n);
+			var n = this.makeNode (row[i], i, row.length, height, rowNum);
 
 			if (prevNode)
 				prevNode.connectTo (n);
+			
 			prevNode = n;
 		}
-
-		//this.skiplist.addRow (newRow);
 	}
 
-	this.towers = towers;
-	this.elems  = elements;
-	sentinel = this.sentinel;
-
-	Nodes.setActive ([this.sentinel.getTopNode()])
+	sentinel = this.getTower (0);
+	
+	this.numRows = rows.length;
+	Nodes.setActive ([sentinel.getTopNode()])
+	
+	jsPlumb.repaintEverything ();
 }
 
 Build.prototype.rebuild = function (rows){
 	this.towers.removeAll ();
-	this.sentinel.remove ();
 
 	this.build (rows);
 }
