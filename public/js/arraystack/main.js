@@ -41,6 +41,9 @@ function loadNew (){
 	Droppers = new DropArray();
 	RowIndices = new ElementArray(DOM.indices(), Indices);
 	Trash.add (DOM.trash());
+
+	if (parent && parent.resizeIframe)
+		parent.resizeIframe ();
 }
 function reload (){
 	$.get("/arraystack/exercise", function(res){

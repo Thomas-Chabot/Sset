@@ -39,6 +39,9 @@ function load (){
 
 		cur.disconnect ();
 		save.update ();
+		resize ();
+
+		jsPlumb.repaintEverything ();
 	})
 }
 

@@ -3,5 +3,6 @@ function loadExercise(){
 		var tbody = $("tbody");
 		tbody.empty().append(res);
 		applyDraggingSorting();
+		resize ();
 	})
 }

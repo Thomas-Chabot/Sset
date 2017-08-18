@@ -64,6 +64,32 @@
       }
       div.exercise {
       }
+      div.instructions{
+	font-size: 12pt;
+      }
+      div.instructions>ol{
+	margin: 0;
+      }
+      div.instructions:before{
+        font-weight: bold;
+        content: "INSTRUCTIONS: ";
+      }
+      div.note:before{
+        font-weight: bold;
+        content: "NOTE: ";
+      }
+      div.note{
+        font-size: 12pt;
+      }
+      div.note > ul {
+        margin-top: 0;
+      }
+      div.note > ul > li {
+        font-size: 12pt;
+      }
+      div.note > ul > li.highlight{
+        font-weight: bold;
+      }
       div.element {
       	height: 80%;
       	display: inline-block;
@@ -77,11 +103,22 @@
       }
       #question {
           font-family: monospace;
-          width: 80%;
-          height: 80%;
+          width: 100%;
+          height: 800px;
           border: 1px solid black;
           position: relative;
           box-shadow: 10px 10px 5px #888888;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      div.inners {
+	  position: relative;
+	  top: 50px;
+	  height: calc(100% - 50px);
       }
       .textin {
           letter-spacing: 1em;
@@ -128,6 +165,12 @@
       .plumbSource{
         z-index: 99;
       }
+      div.listPointers{
+        position: absolute; 
+        height: 50px;
+        width: 100%;
+	border-bottom: 1px solid black;
+      }
       div.node{
         width: 63px;
         display: inline-block;
@@ -137,16 +180,27 @@
         width: 110px;
       }
       div.node.head{
-        top: 50px;
+        top: 10px;
       }
       div.node.tail{
-        top: 78px;
+        top: 10px;
+        left: calc(100% - 110px);
+      }
+      div.node.null{
+        top: 10px;
+        left: calc(50% - 55px);
       }
       div.node.cur{
-        top: 150px;
+        bottom: 0px;
       }
       div.node.new{
-        top: 178px;
+	bottom: 0px;
+	right: 0px;
+      }
+      div.node.head > div.data, div.node.tail > div.data,
+      div.node.cur > div.data, div.node.new > div.data
+      {
+        border-right: 1px solid black;
       }
       div.node > div {
         width: 30px;

@@ -1,17 +1,9 @@
-var Nodes;
-
-var currentNode;
-
-var searchPath = new NodesArray ();
-var sentinel;
-
-var check;
-
-var answer;
-
-var build;
+searchPath = new NodesArray ();
+mode = new Mode(modes);
 
 $(function (){
+	DOM.checkBtn ().hide ();
+
 	check = new Checkmark ();
 	jsPlumb.ready (function(){
 		load (function(){
@@ -20,6 +12,15 @@ $(function (){
 	})
 });
 
+function setOperText (txt){
+	DOM.getOper ().text (txt);
+}
+
 function setSearchingFor (d){
 	DOM.getOper ().text ("find(" + d + ")");
+}
+
+function resize(){
+	if (parent && parent.resizeIframe)
+		parent.resizeIframe ();
 }

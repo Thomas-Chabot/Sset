@@ -1,25 +1,33 @@
 var nodeId = 1001;
 
 function Node (elem, data, opts){
+	var s = this;
+
 	if (!opts.parent) opts.parent = DOM.question();
 	if (!elem)
-		elem = DOM.newNode (opts.big);
+		elem = DOM.newNode (opts);
+
+	if (opts.text)
+		this.txt = opts.text;
 
 	this.uniqId = nodeId++;
 	this.elem = $(elem).appendTo (opts.parent).attr ("id", "Node" + this.uniqId);
 
-	var prevPointer = DOM.prevFrom (elem);
-	var nextPointer = DOM.nextFrom (elem);
+	if (opts.hasPointers !== false) {
+		var prevPointer = DOM.prevFrom (elem);
+		var nextPointer = DOM.nextFrom (elem);
 
-	this.nextPtr = new Pointer(nextPointer, opts);
-	this.prevPtr = new Pointer(prevPointer, opts);
+		this.nextPtr = new Pointer(nextPointer, opts, "next");
+		this.prevPtr = new Pointer(prevPointer, opts, "prev");
+
+		this.nextPtr.nextChanged = function(n, u){ s.nextChanged (n, u); }
+		this.prevPtr.nextChanged = function(n, u){ s.prevChanged (n, u); }
+	}
 
 	this.isDummy = opts.isDummy;
-
-	var s = this;
-
-	this.nextPtr.nextChanged = function(n, u){ s.nextChanged (n, u); }
-	this.prevPtr.nextChanged = function(n, u){ s.prevChanged (n, u); }
+	if (this.isDummy){
+		this.txt = "◘";
+ 	}
 
 	if (opts.hasEndpoint !== false)
 		this.attachTarget ();
@@ -27,8 +35,12 @@ function Node (elem, data, opts){
 	this.setData (data);
 
 	this.enabled = true;
-	this.activator = new Activation (this);
-	this.indexCon  = new Index (this, opts);
+
+	if (opts.activates !== false)
+		this.activator = new Activation (this);
+
+	if (opts.index !== false)
+		this.indexCon  = new Index (this, opts);
 }
 
 Node.prototype = new Element(null);
@@ -37,6 +49,8 @@ Node.prototype.getClonedFrom = function(){ return this.clonedFrom; }
 Node.prototype.setClonedFrom = function(n){ this.clonedFrom = n; }
 Node.prototype.setData = function(d){
 	this.data = d;
+
+	if (this.txt) d = this.txt;
 	DOM.dataFrom (this.elem).text(d);
 }
 

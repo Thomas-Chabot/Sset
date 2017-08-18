@@ -22,19 +22,17 @@
       }
       a.button {
         padding: 3pt 6pt 3pt 6pt;
-        border: 2px solid rgb(204,0,51); /* CU red */ 
+        border: 2px solid rgb(204,0,51); /* CU red llist*/ 
         color: rgb(204,0,51); /* CU red */ 
         margin-left: 9px;
       }
       a.button.default {
         border-color: #666;
         color: #666;
-        border-style: #666;
       }
       a.button.check {
         border-color: #282;
         color: #282;
-        border-style: #282;
       }
       a.button:active {
         border-color: black;
@@ -46,10 +44,10 @@
 	 max-width: 784px;
          text-align: justify;
       }
-      span#op {
+      span#operation {
         display: inline-block;
-        float: right;
-        margin-right: 20%;
+	position: absolute;
+	left: 300px;
       }
       a {
           text-decoration: none;
@@ -57,6 +55,9 @@
       }
       .hidden {
         visibility: hidden;
+      }
+      .hiddenNoSpacing {
+	display: none;
       }
       div.exercise:before {
         font-weight: bold;
@@ -80,6 +81,26 @@
       div.note > ul > li.highlight{
         font-weight: bold;
       }
+      div.alternate:before{
+        font-weight: bold;
+        content: "ALTERNATIVELY: ";
+      }
+      div.alternate{
+	font-size: 12pt;
+      }
+      div.alternate>ul{
+	margin: 0;
+      }
+      div.instructions{
+	font-size: 12pt;
+      }
+      div.instructions>ul{
+	margin: 0;
+      }
+      div.instructions:before{
+        font-weight: bold;
+        content: "INSTRUCTIONS: ";
+      }
       div.element {
       	height: 80%;
       	display: inline-block;
@@ -93,11 +114,17 @@
       }
       #question {
           font-family: monospace;
-          width: 800px;
-          height: 80%;
+          width: 95%;
+          height: 800px;
           border: 1px solid black;
           position: absolute;
           box-shadow: 10px 10px 5px #888888;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
       .textin {
           letter-spacing: 1em;
@@ -123,8 +150,8 @@
       span.checkmark {
           font-size: 200%;
           color: red;
-          float: right;
-          margin-right: 25px;
+	  position: absolute;
+	  left: 400px;
       }
       span.checkmark.correct {
         color: green;
@@ -168,6 +195,14 @@
       div.node.searchPath > div.data, div.node.searchPath > div.pointer{
         background-color: #CCC;
       }
+      div.node.new > div.data, div.node.new > div.pointer{
+	background-color: #b1e888;
+      }
+      svg.new path {
+	  stroke:#098c00;
+	  stroke-width:2;
+    fill: #098c00;
+      }
       div.node > div.data{
         border-right: none;
       }
@@ -190,4 +225,19 @@
         width: 100%; 
         height: 30px;
         position: absolute;
+      }
+      .active > div{
+	background-color: #cee0f4;
+      }
+      div.length{
+	display: inline-block;
+	position: relative;
+	font-size: 14px;
+	color: rgba(31, 117, 107, 0.55); 
+      }
+      div.index{
+	display: inline-block;
+	position: absolute;
+	font-size: 14px;
+	color: rgb(0, 27, 249); 
       }

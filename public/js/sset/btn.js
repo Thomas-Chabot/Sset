@@ -68,3 +68,8 @@ function shiftToNext(elements, index){
 	var newSet  = getSetWithIndex(next);
 	newSet.append(elements.clone());
 }
+
+function resize(){
+	if (parent && parent.resizeIframe)
+		parent.resizeIframe ();
+}

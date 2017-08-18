@@ -22,10 +22,11 @@ DOM.indexFrom = function(r){
 }
 
 DOM.nodes = function(){ return $(".node"); }
-DOM.getOper = function(){ return $("#op"); }
+DOM.getOper = function(){ return $("#operation"); }
 DOM.question = function(){ return $("#question"); }
 DOM.checkmark = function(){ return $("span.checkmark"); }
 DOM.clone = function(){ return $("#reset"); }
+DOM.checkBtn = function(){ return $("#checkBtn"); }
 
 DOM.show = function (elem){
 	$(elem).removeClass ("hidden");
@@ -47,11 +48,18 @@ DOM.contains = function(elem){
 	return DOM.within (document, elem);
 }
 
+DOM.resize = function (elem, size) {
+	$(elem).css ("width", size);
+	resize ();
+}
+
 // turns a possible JQuery object into DOM element
 DOM.from = function (obj){
 	return $(obj)[0];
 }
 
+
+DOM.newIndex = function(){ return $("<div class='index'></div>"); }
 DOM.newData = function (){
 	return $("<div class='data'></div>");	
 }
@@ -73,3 +81,5 @@ DOM.newNode = function (big){
 
 	return d.append(data).append(next);
 }
+
+

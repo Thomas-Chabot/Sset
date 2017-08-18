@@ -1,6 +1,6 @@
 var Nodes;
 
-var head, tail, cur, newN;
+var head, tail, cur, newN, nullN;
 var checkmark;
 
 var save = new Save();
@@ -9,15 +9,17 @@ $(function(){
 	jsPlumb.ready(function(){
 		Nodes = new NodesArray();
 
-		head = new Node($("div.node.head"), "HEAD", false);
-		tail = new Node($("div.node.tail"), "TAIL", false);
+		head = new Node($("div.node.head"), "first", false);
+		tail = new Node($("div.node.tail"), "last", false);
 		cur  = new AutomaticNode($("div.node.cur"), "CUR");
 		newN = new AutomaticNode($("div.node.new"), "NEW");
+                nullN = new AutomaticNode($("div.node.null"), "NULL", {acceptConnections: true});
 
 		Nodes.push (head);
 		Nodes.push (tail);
 		Nodes.push (cur);
 		Nodes.push (newN);
+		Nodes.push (nullN);
 
 		checkmark = new Checkmark(DOM.checkmark ());
 
@@ -31,10 +33,10 @@ $(function(){
 function updateMainPointers (){
 	Nodes.each (function (el){
 		switch (el.getData()){
-			case "HEAD":
+			case "first": case "HEAD":
 				head = el;
 				break;
-			case "TAIL":
+			case "last": case "TAIL":
 				tail = el;
 				break;
 			case "CUR":
@@ -47,4 +49,9 @@ function updateMainPointers (){
 				break;
 		}
 	});
+}
+
+function resize(){
+	if (parent && parent.resizeIframe)
+		parent.resizeIframe ();
 }

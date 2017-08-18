@@ -4,14 +4,16 @@ var checkmark;
 
 var save = new Save();
 
-var curNode, newNode, dummyNode;
+var curNode, newNode, dummyNode, nullNode;
 
 $(function(){
 	jsPlumb.ready(function(){
 		Nodes = new NodesArray();
 
-		dummyNode = new Node(undefined, "", {big: true, isDummy: true});
+		dummyNode = new Node(undefined, "", {big: false, isDummy: true});
 		Nodes.push (dummyNode);
+
+		nullNode  = new Node(undefined, "NULL", {hasPointers: false, index: false, activates: false})
 		
 		checkmark = new Checkmark(DOM.checkmark ());
 
@@ -20,6 +22,17 @@ $(function(){
 		restart ();
 	});
 });
+
+function updateNewNode (index) {
+	if (!index) return;
+
+	Nodes.each(function(el){
+		if (el.getIndex() === index){
+			newNode = el;
+			return false;
+		}
+	});
+}
 
 function updateMainPointers (){
 	Nodes.each (function (el){
@@ -33,4 +46,9 @@ function updateMainPointers (){
 				break;
 		}
 	});
+}
+
+function resize(){
+	if (parent && parent.resizeIframe)
+		parent.resizeIframe ();
 }

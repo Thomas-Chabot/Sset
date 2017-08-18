@@ -30,12 +30,13 @@ function load (){
 		if (val.x)
 			Nodes.add (val.x);
 		else
-			newNode = null;
+			updateNewNode (val.i);
 
 		curNode = dummyNode;
 		save.update ();
 
 		update ();
+		resize ();
 	})
 }
 

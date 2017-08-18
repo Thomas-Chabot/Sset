@@ -1,10 +1,10 @@
 var NEXT_ID = 0;
-function Pointer (pointer, opts){
+function Pointer (pointer, opts, type){
 	pointer.attr("id", "pointer" + NEXT_ID++);
 
 	this.elem = pointer;
 	if (opts.hasEndpoint !== false)
-		this.plumb = new Plumbify (this, opts, true);
+		this.plumb = new Plumbify (this, opts, type);
 
 	this.next = null;
 }
@@ -54,6 +54,8 @@ Pointer.prototype.disconnect = function(){
 	this.plumb.disconnect ();
 }
 Pointer.prototype.connectTo = function(n, opts){
+	if (!n) return;
+
 	this.setNext (n, opts);
 	this.plumb.connectTo (n.getElem());
 }

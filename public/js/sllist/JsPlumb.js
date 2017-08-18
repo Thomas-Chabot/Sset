@@ -1,3 +1,5 @@
+// my shadow weighs over 42 pounds... let me tell you once again
+// who's fat
 
 var innerStroke = 'rgba(0, 0, 0, 1)';
 var outerStroke = 'rgba(235, 235, 235, 1)';
@@ -60,12 +62,16 @@ Plumbify.prototype.addEndpoint = function(elem, typ){
 Plumbify.prototype.target = function(){
 	jsPlumb.makeTarget (this.src, {
 		endpoint: "Blank",
-		anchor: [ "Perimeter", { shape:"Rectangle" } ]
+		anchor: [ "Perimeter", { shape:"Rectangle" } ],
+		maxConnections: -1
 	});
 	return this;
 }
 Plumbify.prototype.setTargEnabled = function(n){
 	jsPlumb.setTargetEnabled (this.src, n);
+}
+Plumbify.prototype.isTargetEnabled = function(){
+	return jsPlumb.isTargetEnabled (this.src);
 }
 
 Plumbify.prototype.draggable = function(elem){
@@ -79,9 +85,11 @@ Plumbify.prototype.getSource = function(){
 
 Plumbify.prototype.disconnect = function(){
 	if (!this.conn) return;
-	if (!this.conn.connector) return;
-
-	jsPlumb.detach (this.conn);
+	if (!this.conn.connector) return; 
+	jsPlumb.detach (this.conn, {
+		fireEvent: false,
+		forceDetach: true
+	});
 }
 
 Plumbify.prototype.connectTo = function (elem, canDetach){
@@ -92,11 +100,10 @@ Plumbify.prototype.connectTo = function (elem, canDetach){
 		source: this.endpoint,
 		target: elem,
 		overlays: [
-	        [ "Arrow", { width:10, length:12, location:1, id:"arrow" } ]
+		[ "Arrow", { width:10, length:12, location:1, id:"arrow" } ]
 	    ],
 	    detachable: canDetach
 	})
-
 }
 
 Plumbify.prototype.remove = function(){
@@ -136,6 +143,9 @@ function findPlumb (fromSrc){
 	fromSrc = $(fromSrc);
 	return Nodes.find(function(el){ return fromSrc.is(el.getSrc()); });
 }
+function findNode (fromSrc){
+	return Nodes.from (fromSrc);
+}
 
 function reloadPlumbs (){
 	jsPlumb.repaintEverything();
@@ -155,7 +165,6 @@ jsPlumb.bind("connectionDetached", function(evt){
 	var p   = findPlumb (src);
 	if (!p) return;
 	
-
 	p.setNext (null);
 })
 
@@ -170,9 +179,18 @@ jsPlumb.bind("connectionDrag", function(evt){
 jsPlumb.bind("connectionDragStop", function(evt){
 	var src = evt.source;
 	var p   = findPlumb (src);
+	
+	var targ = evt.target;
+	var c    = findNode (targ);
 
 	if (!p) return;
 	p.setDragging(false);
+
+	if (!c){
+		setTimeout (function (){
+			p.applyConnections ();
+		}, 5);
+	}
 });
 jsPlumb.bind("connectionAborted", function(evt){
 	var src = evt.source;
@@ -180,6 +198,15 @@ jsPlumb.bind("connectionAborted", function(evt){
 
 	if (!p) return;
 	p.setDragging(false);
+});
+
+// connector events
+jsPlumb.bind("beforeStartDetach", function(endpoint, source, sourceId){
+	jsPlumb.detachAllConnections(endpoint.source, {
+		fireEvent: false
+	});
+
+	return true;
 });
 
 jsPlumb.ready(function(){

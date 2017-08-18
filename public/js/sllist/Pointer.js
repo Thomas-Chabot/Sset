@@ -76,8 +76,20 @@ Pointer.prototype.disconnect = function(){
 }
 Pointer.prototype.connectTo = function(n, notSticky){
 	var a = (notSticky === true) ? true : !this.isAuto ();
-	this.connectNext (n);
-	this.plumb.connectTo (n.getTargEndpoint(), a);
+
+	if (n){
+		var t = n.getTarget ();
+		var f = n.isEnabled ();
+
+		n.enable();
+
+		this.connectNext (n);
+		this.plumb.connectTo (n.getTargEndpoint(), a);
+
+		n.setEnabled (f);
+	}
+
+
 }
 
 Pointer.prototype.remove = function (){
